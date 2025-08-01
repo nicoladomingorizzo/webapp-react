@@ -1,2 +1,18 @@
 @import 'bootstrap';
 @import 'bootstrap-icons';
+
+.hidden {
+    display: none !important;
+}
+
+.col {
+    height: 400px;
+}
+
+.card:hover figure {
+    display: none;
+}
+
+.card:hover .hidden {
+    display: flex !important;
+}
