@@ -1,6 +1,6 @@
 export default function AppFooter() {
     return (
-        <footer className="bg-dark text-white pt-5 pb-4">
+        <footer className="bg-black text-white pt-5 pb-4">
             <div className="container">
                 <div className="d-flex flex-column flex-md-row justify-content-around align-items-center text-center text-md-start">
 

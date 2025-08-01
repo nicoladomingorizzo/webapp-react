@@ -37,8 +37,8 @@ export default function MoviesPage() {
                                             <p className="py-1"><b>Anno: </b>{movie.release_year}</p>
                                             <p className="py-1"><b>Diretto da: </b>{movie.director}</p>
                                             <p className="py-1"><b>Genere: </b>{movie.genre}</p>
-                                            <p className="py-1"><b>Trama:</b>{movie.abstract}</p>
-                                            <Link className='link-underline link-underline-opacity-0' to={`/movies/${movie.id}`}>Visualizza recensioni film</Link>
+                                            <p className="py-1"><b>Trama: </b>{movie.abstract}</p>
+                                            <Link className='link-underline link-underline-opacity-0' to={`/movies/${movie.id}`}>Visualizza dettagli film</Link>
                                         </div>
                                     </div>
                                 </div>

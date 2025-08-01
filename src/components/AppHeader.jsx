@@ -4,7 +4,7 @@ export default function AppHeader() {
     return (
         <header>
             <nav
-                className="navbar navbar-expand-sm navbar-light bg-light">
+                className="navbar navbar-expand-sm navbar-dark bg-black">
                 <div className="container d-flex justify-content-between align-items-center my-3">
                     <NavLink className="navbar-brand" to="/">Movies Rubati (non siamo a Naples)</NavLink>
                     <button
