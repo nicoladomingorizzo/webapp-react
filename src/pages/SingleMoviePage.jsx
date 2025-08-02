@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function SingleMoviePage() {
 
     const { id } = useParams();
     const apiUrl = `http://localhost:3030/api/movies/${id}`;
     const [movie, setMovie] = useState('');
-    const [review, setReview] = useState([]);
+    const [reviews, setReviews] = useState([]);
+    const [name, setName] = useState('');
+    const [text, setText] = useState('');
+    const [vote, setVote] = useState('');
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetch(apiUrl)
@@ -14,17 +19,59 @@ export default function SingleMoviePage() {
             .then(data => {
                 // console.log(data)
                 setMovie(data)
+                setReviews(data.result)
             })
-    }, [])
+    }, [id, navigate])
+
+    const handleReviewSubmit = (e) => {
+        e.preventDefault();
+
+        const newReview = {
+            name,
+            text,
+            vote: parseInt(vote)
+        };
+
+        fetch(`http://localhost:3030/api/movies/${id}/reviews`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newReview)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setReviews(prev => [...prev, data]);
+                setName('');
+                setText('');
+                setVote('');
+            })
+            .catch(err => console.error('Errore invio recensione:', err));
+    };
+
 
     return (
         <>
 
             <main className="container my-5 mx-auto text-center">
-                <h1><b>Titolo del film: {movie.title}</b></h1>
+                <div className="d-flex justify-content-end me-5 mb-3">
+                    <button className="btn btn-outline-dark text-right"
+                        onClick={e => { navigate('/movies') }}>X</button>
+                </div>
+                <div className="d-flex justify-content-around gap-3">
+                    <button className='btn btn-outline-dark text-right'
+                        disabled={movie.id === 1}
+                        onClick={e => { navigate(`/movies/${parseInt(movie.id - 1)}`) }}
+                        onKeyDown={e => e.key === 'ArrowLeft' && navigate(`/movies/${parseInt(movie.id + 1)}`)}>Predecente</button>
+                    <button className={`btn btn-outline-dark text-right`}
+                        disabled={movie.id === 5}
+                        onClick={e => { navigate(`/movies/${parseInt(movie.id + 1)}`) }}
+                        onKeyDown={e => e.key === 'ArrowRight' && navigate(`/movies/${parseInt(movie.id - 5)}`)}>Successivo</button>
+                </div>
+                <h1 className="mb-3 mt-5 "><b>Titolo del film: {movie.title}</b></h1>
                 <section className="d-flex justify-content-between gap-3 w-75 mx-auto my-5">
                     <figure>
-                        <img className='rounded mt-3' src={movie.image} alt={movie.title} />
+                        <img className='rounded mt-3 img-fluid' src={movie.image} alt={movie.title} style={{ height: '500px' }} />
                     </figure>
                     <div className=" d-flex flex-column justify-content-evenly">
                         <p className="py-1"><b>Anno <br /></b>{movie.release_year}</p>
@@ -35,29 +82,31 @@ export default function SingleMoviePage() {
                     </div>
                 </section>
                 <section>
-                    <div className="row row-cols-1 w-75 mx-auto">
-                        <div className="col">
-                            <div className="card">
-                                <div className="card-top py-2">
-                                    <h5>Recensione</h5>
-                                </div>
-                                <div className="card-body">
-                                    <div className="name">
-                                        Nome:
+                    <h5 className="pt-2">Di seguito le recensioni</h5>
+                    <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 mx-auto">
+                        <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-100 h-50 my-5">
+                            {reviews.map(review => {
+                                return (
+                                    <div className="card" key={review.id}>
+                                        <div className="card-body">
+                                            <div className="name py-2">
+                                                <b>Nome </b><br />{review.name}
+                                            </div>
+                                            <div className="text py-2">
+                                                <b>Recensione </b><br />{review.text}
+                                            </div>
+                                            <div className="vote py-2">
+                                                <b>Voto </b><br />{review.vote}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="text">
-                                        Testo:
-                                    </div>
-                                    <div className="vote">
-                                        Voto:
-                                    </div>
-                                </div>
-                            </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </section>
                 <section>
-                    <form className="card w-75 mx-auto">
+                    <form className="card w-75 mx-auto" onSubmit={handleReviewSubmit}>
                         <div className="card-top">
                             <h3 className="my-3">Lascia una recensione, se ti va</h3>
                         </div>
@@ -65,22 +114,31 @@ export default function SingleMoviePage() {
 
                             <div className="my-1">
                                 <label htmlFor="name" className="form-label">Nome</label>
-                                <input type="name" className="form-control w-75 mx-auto" id="name" placeholder="Digita il tuo nome..." />
+                                <input type="name" className="form-control w-75 mx-auto" id="name" placeholder="Digita il tuo nome..."
+                                    value={name}
+                                    onChange={e => setName(e.target.value)} />
                             </div>
                             <div className="my-3">
                                 <label htmlFor="review" className="form-label" >Lascia una recensione</label>
-                                <textarea className="form-control w-75 mx-auto" id="review" rows="3"></textarea>
+                                <textarea className="form-control w-75 mx-auto"
+                                    id="review"
+                                    rows="3"
+                                    value={text}
+                                    onChange={e => setText(e.target.value)}></textarea>
                             </div>
                             <div className="mb-3 d-flex justify-content-around align-items-center">
-                                <select className="form-select form-select-lg mb-3 w-25 text-center" aria-label="Large select example">
+                                <select className="form-select form-select-lg mb-3 w-25 text-center"
+                                    aria-label="Large select example"
+                                    value={vote}
+                                    onChange={e => setVote(e.target.value)}>
                                     <option value="default">Dai un voto da 1 a 5</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
-                                    <option value="3">4</option>
-                                    <option value="3">5</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>
-                                <button className="btn btn-outline-primary py-2 px-3"><i className="bi bi-floppy"></i>Invia</button>
+                                <button className="btn btn-outline-primary py-2 px-3"><i className="bi bi-floppy pe-2"></i>Invia</button>
                             </div>
                         </div>
                     </form>

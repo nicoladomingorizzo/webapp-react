@@ -3,6 +3,7 @@ import Homepage from "./pages/Homepage";
 import MoviesPage from "./pages/MoviesPage";
 import SingleMoviePage from "./pages/SingleMoviePage";
 import DefaulLayout from "./layouts/DefaultLayout";
+import NotFound from "./pages/NotFoundPage";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/movies/:id" element={<SingleMoviePage />} />
 
           </Route>
+          <Route path="/*" element={<NotFound />} />
 
         </Routes>
 

@@ -5,22 +5,33 @@ export default function MoviesPage() {
 
     const apiUrl = 'http://localhost:3030/api/movies/';
     const [movies, setMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true)
         fetch(apiUrl)
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
                 setMovies(data)
+                return data;
             })
-            .catch(err => {
-                alert('Errore durante il caricamento. Riprova più tardi.');
+            .finally(() => {
+                setIsLoading(false)
             })
     }, [])
 
     return (
         <>
+            {isLoading && (
+                <div className="d-flex justify-content-center align-items-center mt-5">
+                    <p className="me-3 fs-4">Caricamento dei prodotti</p> {/* Messaggio esistente */}
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            )}
             <main className="container my-5 mx-auto text-center">
                 <h1>Tutti i Nostri Film Rubati</h1>
                 <section className=" mt-3">
