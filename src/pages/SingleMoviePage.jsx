@@ -21,9 +21,9 @@ export default function SingleMoviePage() {
                 setMovie(data)
                 setReviews(data.result)
             })
-    }, [id, navigate])
+    }, [id, navigate]);
 
-    const handleReviewSubmit = (e) => {
+    function handleReviewSubmit(e) {
         e.preventDefault();
 
         const newReview = {
