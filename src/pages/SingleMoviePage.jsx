@@ -24,6 +24,10 @@ export default function SingleMoviePage() {
     }, [id, navigate]);
 
     function handleReviewSubmit(e) {
+        if (!name || !text || vote === 'default') {
+            alert('Per favore, compila tutti i campi e scegli un voto valido.');
+            return;
+        }
         e.preventDefault();
 
         const newReview = {
@@ -50,9 +54,12 @@ export default function SingleMoviePage() {
     };
 
 
+    if (!movie || !movie.id) {
+        return <p className="text-center my-5 fs-3">Non ci sono film validi a questo indirizzo. <br />
+            Per favore, torna alla pagina film e scegline uno valido.</p>;
+    }
     return (
         <>
-
             <main className="container my-5 mx-auto text-center">
                 <div className="d-flex justify-content-end me-5 mb-3">
                     <button className="btn btn-outline-dark text-right"
@@ -62,11 +69,11 @@ export default function SingleMoviePage() {
                     <button className='btn btn-outline-dark text-right'
                         disabled={movie.id === 1}
                         onClick={e => { navigate(`/movies/${parseInt(movie.id - 1)}`) }}
-                        onKeyDown={e => e.key === 'ArrowLeft' && navigate(`/movies/${parseInt(movie.id + 1)}`)}>Predecente</button>
+                        onKeyDown={e => e.key === 'ArrowLeft' && navigate(`/movies/${parseInt(movie.id - 1)}`)}>Predecente</button>
                     <button className={`btn btn-outline-dark text-right`}
                         disabled={movie.id === 5}
                         onClick={e => { navigate(`/movies/${parseInt(movie.id + 1)}`) }}
-                        onKeyDown={e => e.key === 'ArrowRight' && navigate(`/movies/${parseInt(movie.id - 5)}`)}>Successivo</button>
+                        onKeyDown={e => e.key === 'ArrowRight' && navigate(`/movies/${parseInt(movie.id + 1)}`)}>Successivo</button>
                 </div>
                 <h1 className="mb-3 mt-5 "><b>Titolo del film: {movie.title}</b></h1>
                 <section className="d-flex justify-content-between gap-3 w-75 mx-auto my-5">
@@ -114,7 +121,7 @@ export default function SingleMoviePage() {
 
                             <div className="my-1">
                                 <label htmlFor="name" className="form-label">Nome</label>
-                                <input type="name" className="form-control w-75 mx-auto" id="name" placeholder="Digita il tuo nome..."
+                                <input type="text" className="form-control w-75 mx-auto" id="name" placeholder="Digita il tuo nome..."
                                     value={name}
                                     onChange={e => setName(e.target.value)} />
                             </div>
