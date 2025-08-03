@@ -5,6 +5,7 @@ import SingleMoviePage from "./pages/SingleMoviePage";
 import DefaulLayout from "./layouts/DefaultLayout";
 import NotFound from "./pages/NotFoundPage";
 import { MoviesProvider } from "./context/MoviesContext";
+import StoryPage from "./pages/StoryPage";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route element={<DefaulLayout />}>
 
               <Route index element={<Homepage />} />
+              <Route path="/about" element={<StoryPage />} />
               <Route path="/movies" element={<MoviesPage />} />
               <Route path="/movies/:id" element={<SingleMoviePage />} />
 
