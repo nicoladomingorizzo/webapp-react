@@ -54,9 +54,18 @@ export default function SingleMoviePage() {
     };
 
 
-    if (!movie || !movie.id) {
-        return <p className="text-center my-5 fs-3">Non ci sono film validi a questo indirizzo. <br />
-            Per favore, torna alla pagina film e scegline uno valido.</p>;
+    {
+        if (!movie?.id) {
+            return (
+                <p className="text-center my-5 fs-3">
+                    Non ci sono film validi a questo indirizzo. <br />
+                    <button className="btn btn-outline-primary my-5" onClick={() => navigate('/movies')}>
+                        Torna alla sezione film
+                    </button>
+                </p>
+            );
+        }
+
     }
     return (
         <>

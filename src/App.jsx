@@ -4,28 +4,33 @@ import MoviesPage from "./pages/MoviesPage";
 import SingleMoviePage from "./pages/SingleMoviePage";
 import DefaulLayout from "./layouts/DefaultLayout";
 import NotFound from "./pages/NotFoundPage";
+import { MoviesProvider } from "./context/MoviesContext";
 
 function App() {
 
   return (
     <>
 
-      <BrowserRouter>
+      <MoviesProvider>
 
-        <Routes>
+        <BrowserRouter>
 
-          <Route element={<DefaulLayout />}>
+          <Routes>
 
-            <Route index element={<Homepage />} />
-            <Route path="/movies" element={<MoviesPage />} />
-            <Route path="/movies/:id" element={<SingleMoviePage />} />
+            <Route element={<DefaulLayout />}>
 
-          </Route>
-          <Route path="/*" element={<NotFound />} />
+              <Route index element={<Homepage />} />
+              <Route path="/movies" element={<MoviesPage />} />
+              <Route path="/movies/:id" element={<SingleMoviePage />} />
 
-        </Routes>
+            </Route>
+            <Route path="/*" element={<NotFound />} />
 
-      </BrowserRouter>
+          </Routes>
+
+        </BrowserRouter>
+
+      </MoviesProvider>
 
     </>
   )
