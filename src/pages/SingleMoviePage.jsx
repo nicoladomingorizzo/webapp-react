@@ -10,6 +10,7 @@ export default function SingleMoviePage() {
     const [name, setName] = useState('');
     const [text, setText] = useState('');
     const [vote, setVote] = useState('');
+    const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
     const navigate = useNavigate();
 
 
@@ -82,6 +83,17 @@ export default function SingleMoviePage() {
         };
     }, [movie.id, navigate]);
 
+    useEffect(() => {
+        if (reviews.length > 0) {
+            //imposto l'interval
+            const timer = setInterval(() => {
+                //prendo la recensione corrente e passo alla successiva e con l'operatore % faccio si che quando arriva a 0 ricomincia
+                setCurrentReviewIndex(prevIndex => (prevIndex + 1) % reviews.length);
+            }, 3000); // 3000 millisecondi = 3 secondi
+
+            return () => clearInterval(timer); // Pulizia del timer se usciamo dalla pagina o 
+        }
+    }, [reviews]);
 
     if (!movie?.id) {
         return (
@@ -125,6 +137,30 @@ export default function SingleMoviePage() {
                 </section>
                 <section>
                     <h5 className="pt-2">Di seguito le recensioni</h5>
+                    <div className="row mx-auto w-75">
+                        {reviews.length > 0 ? (
+                            <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-75 h-50 my-5">
+                                <div className="card w-100 mx-auto">
+                                    <div className="card-body">
+                                        <div className="name py-2">
+                                            <b>Nome </b><br />{reviews[currentReviewIndex].name}
+                                        </div>
+                                        <div className="text py-2">
+                                            <b>Recensione </b><br />{reviews[currentReviewIndex].text}
+                                        </div>
+                                        <div className="vote py-2">
+                                            <b>Voto </b><br />{reviews[currentReviewIndex].vote}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <p className="text-center my-5">Nessuna recensione ancora. Sii il primo a scriverne una!</p>
+                        )}
+                    </div>
+                </section>
+                {/* <section>
+                    <h5 className="pt-2">Di seguito le recensioni</h5>
                     <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 mx-auto w-75">
                         <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-75 h-50 my-5">
                             {reviews.map(review => {
@@ -146,7 +182,7 @@ export default function SingleMoviePage() {
                             })}
                         </div>
                     </div>
-                </section>
+                </section> */}
                 <section>
                     <form className="card w-75 mx-auto" onSubmit={handleReviewSubmit}>
                         <div className="card-top">
