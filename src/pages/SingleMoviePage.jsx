@@ -21,14 +21,14 @@ export default function SingleMoviePage() {
                 setMovie(data)
                 setReviews(data.result)
             })
-    }, [id, navigate]);
+    }, [id]);
 
     function handleReviewSubmit(e) {
-        if (!name || !text || vote === 'default') {
+        e.preventDefault();
+        if (!name.trim() || !text.trim() || vote === '') {
             alert('Per favore, compila tutti i campi e scegli un voto valido.');
             return;
         }
-        e.preventDefault();
 
         const newReview = {
             name,
@@ -54,19 +54,47 @@ export default function SingleMoviePage() {
     };
 
 
-    {
-        if (!movie?.id) {
-            return (
-                <p className="text-center my-5 fs-3">
-                    Non ci sono film validi a questo indirizzo. <br />
-                    <button className="btn btn-outline-primary my-5" onClick={() => navigate('/movies')}>
-                        Torna alla sezione film
-                    </button>
-                </p>
-            );
+    useEffect(() => {
+        function handleKeyNavigation(e) {
+            switch (e.key) {
+                case 'ArrowLeft':
+                    if (movie.id > 1) {
+                        navigate(`/movies/${parseInt(movie.id) - 1}`);
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (movie.id < 5) {
+                        navigate(`/movies/${parseInt(movie.id) + 1}`);
+                    }
+                    break;
+                case 'Escape':
+                    navigate('/movies');
+                    break;
+                default:
+                    break;
+            }
         }
 
+        window.addEventListener('keydown', handleKeyNavigation);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyNavigation);
+        };
+    }, [movie.id, navigate]);
+
+
+    if (!movie?.id) {
+        return (
+            <p className="text-center my-5 fs-3">
+                Non ci sono film validi a questo indirizzo. <br />
+                <button className="btn btn-outline-primary my-5" onClick={() => navigate('/movies')}>
+                    Torna alla sezione film
+                </button>
+            </p>
+        );
     }
+
+
     return (
         <>
             <main className="container my-5 mx-auto text-center">
@@ -77,19 +105,17 @@ export default function SingleMoviePage() {
                 <div className="d-flex justify-content-around gap-3">
                     <button className='btn btn-outline-dark text-right'
                         disabled={movie.id === 1}
-                        onClick={e => { navigate(`/movies/${parseInt(movie.id - 1)}`) }}
-                        onKeyDown={e => e.key === 'ArrowLeft' && navigate(`/movies/${parseInt(movie.id - 1)}`)}>Predecente</button>
+                        onClick={e => { navigate(`/movies/${parseInt(movie.id - 1)}`) }}>Prececente</button>
                     <button className={`btn btn-outline-dark text-right`}
                         disabled={movie.id === 5}
-                        onClick={e => { navigate(`/movies/${parseInt(movie.id + 1)}`) }}
-                        onKeyDown={e => e.key === 'ArrowRight' && navigate(`/movies/${parseInt(movie.id + 1)}`)}>Successivo</button>
+                        onClick={e => { navigate(`/movies/${parseInt(movie.id + 1)}`) }}>Successivo</button>
                 </div>
                 <h1 className="mb-3 mt-5 "><b>Titolo del film: {movie.title}</b></h1>
-                <section className="d-flex justify-content-between gap-3 w-75 mx-auto my-5">
-                    <figure>
+                <section className="row row-cols-1 row-cols-md-2 w-75 mx-auto my-5 h-100">
+                    <figure className="col h-100">
                         <img className='rounded mt-3 img-fluid' src={movie.image} alt={movie.title} style={{ height: '500px' }} />
                     </figure>
-                    <div className=" d-flex flex-column justify-content-evenly">
+                    <div className=" d-flex flex-column justify-content-between pt-5 gap-3 col h-100">
                         <p className="py-1"><b>Anno <br /></b>{movie.release_year}</p>
                         <p className="py-1"><b>Diretto da <br /></b>{movie.director}</p>
                         <p className="py-1"><b>Genere <br /></b>{movie.genre}</p>
@@ -99,11 +125,11 @@ export default function SingleMoviePage() {
                 </section>
                 <section>
                     <h5 className="pt-2">Di seguito le recensioni</h5>
-                    <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 mx-auto">
-                        <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-100 h-50 my-5">
+                    <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 mx-auto w-75">
+                        <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-75 h-50 my-5">
                             {reviews.map(review => {
                                 return (
-                                    <div className="card" key={review.id}>
+                                    <div className="card w-100 mx-auto" key={review.id}>
                                         <div className="card-body">
                                             <div className="name py-2">
                                                 <b>Nome </b><br />{review.name}
@@ -147,7 +173,7 @@ export default function SingleMoviePage() {
                                     aria-label="Large select example"
                                     value={vote}
                                     onChange={e => setVote(e.target.value)}>
-                                    <option value="default">Dai un voto da 1 a 5</option>
+                                    <option value="">Dai un voto da 1 a 5</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
