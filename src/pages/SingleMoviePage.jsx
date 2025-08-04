@@ -20,7 +20,7 @@ export default function SingleMoviePage() {
             .then(data => {
                 // console.log(data)
                 setMovie(data)
-                setReviews(data.result)
+                setReviews(data.reviews)
             })
     }, [id]);
 
@@ -123,7 +123,7 @@ export default function SingleMoviePage() {
                         onClick={e => { navigate(`/movies/${parseInt(movie.id + 1)}`) }}>Successivo</button>
                 </div>
                 <h1 className="mb-3 mt-5 "><b>Titolo del film: {movie.title}</b></h1>
-                <section className="row row-cols-1 row-cols-md-2 w-75 mx-auto my-5 h-100">
+                <section className="row row-cols-1 row-cols-md-2 mx-auto my-5 h-100">
                     <figure className="col h-100">
                         <img className='rounded mt-3 img-fluid' src={movie.image} alt={movie.title} style={{ height: '500px' }} />
                     </figure>
@@ -137,11 +137,11 @@ export default function SingleMoviePage() {
                 </section>
                 <section>
                     <h5 className="pt-2">Di seguito le recensioni</h5>
-                    <div className="row mx-auto w-75">
+                    <div className="row mx-auto w-50">
                         {reviews.length > 0 ? (
                             <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-75 h-50 my-5">
-                                <div className="card w-100 mx-auto">
-                                    <div className="card-body">
+                                <div className="card w-75 mx-auto">
+                                    <div className="card-body bg-body-tertiary">
                                         <div className="name py-2">
                                             <b>Nome </b><br />{reviews[currentReviewIndex].name}
                                         </div>
@@ -184,7 +184,7 @@ export default function SingleMoviePage() {
                     </div>
                 </section> */}
                 <section>
-                    <form className="card w-75 mx-auto" onSubmit={handleReviewSubmit}>
+                    <form className="card w-75 mx-auto bg-body-tertiary" onSubmit={handleReviewSubmit}>
                         <div className="card-top">
                             <h3 className="my-3">Lascia una recensione, se ti va</h3>
                         </div>
