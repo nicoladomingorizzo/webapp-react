@@ -137,10 +137,10 @@ export default function SingleMoviePage() {
                 </section>
                 <section>
                     <h5 className="pt-2">Di seguito le recensioni</h5>
-                    <div className="row mx-auto w-50">
+                    <div className="row mx-auto">
                         {reviews.length > 0 ? (
-                            <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-75 h-50 my-5">
-                                <div className="card w-75 mx-auto">
+                            <div className="col mx-auto h-50 my-5">
+                                <div className="card mx-auto">
                                     <div className="card-body bg-body-tertiary">
                                         <div className="name py-2">
                                             <b>Nome </b><br />{reviews[currentReviewIndex].name}
@@ -184,7 +184,7 @@ export default function SingleMoviePage() {
                     </div>
                 </section> */}
                 <section>
-                    <form className="card w-75 mx-auto bg-body-tertiary" onSubmit={handleReviewSubmit}>
+                    <form className="card mx-auto bg-body-tertiary" onSubmit={handleReviewSubmit}>
                         <div className="card-top">
                             <h3 className="my-3">Lascia una recensione, se ti va</h3>
                         </div>
@@ -204,8 +204,8 @@ export default function SingleMoviePage() {
                                     value={text}
                                     onChange={e => setText(e.target.value)}></textarea>
                             </div>
-                            <div className="mb-3 d-flex justify-content-around align-items-center">
-                                <select className="form-select form-select-lg mb-3 w-25 text-center"
+                            <div className="mb-3 d-flex flex-column flex-wrap justify-content-around g-3 align-items-center">
+                                <select className="form-select form-select-lg w-50 text-center mb-3"
                                     aria-label="Large select example"
                                     value={vote}
                                     onChange={e => setVote(e.target.value)}>
@@ -216,7 +216,7 @@ export default function SingleMoviePage() {
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select>
-                                <button className="btn btn-outline-primary py-2 px-3"><i className="bi bi-floppy pe-2"></i>Invia</button>
+                                <button className="btn btn-outline-primary py-2 px-4 mt-3"><i className="bi bi-send pe-2"></i>Invia</button>
                             </div>
                         </div>
                     </form>
