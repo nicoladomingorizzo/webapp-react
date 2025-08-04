@@ -155,7 +155,7 @@ export default function SingleMoviePage() {
                                 </div>
                             </div>
                         ) : (
-                            <p className="text-center my-5">Nessuna recensione ancora. Sii il primo a scriverne una!</p>
+                            <p className="text-center my-5">Nessuna recensione ancora. Scrivine una per primo.</p>
                         )}
                     </div>
                 </section>
