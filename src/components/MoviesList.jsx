@@ -8,7 +8,7 @@ export default function MoviesList() {
 
     return (
         <main className="container my-5 mx-auto text-center">
-            <div class="d-flex justify-content-end">
+            <div className="d-flex justify-content-end">
                 <Link to={'/'}><button className='btn btn-outline-dark mt-3 me-3 mb-5 p-2 '>Torna alla Home</button></Link>
             </div>
             <h1>Tutti i Nostri Film Rubati</h1>

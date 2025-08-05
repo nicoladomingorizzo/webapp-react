@@ -46,6 +46,9 @@ export default function SingleMoviePage() {
         })
             .then(res => res.json())
             .then(data => {
+                if (data.error) {
+                    return;
+                };
                 setReviews(prev => [...prev, data]);
                 setName('');
                 setText('');
@@ -84,7 +87,7 @@ export default function SingleMoviePage() {
     }, [movie.id, navigate]);
 
     useEffect(() => {
-        if (reviews.length > 0) {
+        if (reviews?.length > 0) {
             //imposto l'interval
             const timer = setInterval(() => {
                 //prendo la recensione corrente e passo alla successiva e con l'operatore % faccio si che quando arriva a 0 ricomincia
@@ -159,30 +162,6 @@ export default function SingleMoviePage() {
                         )}
                     </div>
                 </section>
-                {/* <section>
-                    <h5 className="pt-2">Di seguito le recensioni</h5>
-                    <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 mx-auto w-75">
-                        <div className="col d-flex flex-wrap gap-3 justify-content-between mx-auto w-75 h-50 my-5">
-                            {reviews.map(review => {
-                                return (
-                                    <div className="card w-100 mx-auto" key={review.id}>
-                                        <div className="card-body">
-                                            <div className="name py-2">
-                                                <b>Nome </b><br />{review.name}
-                                            </div>
-                                            <div className="text py-2">
-                                                <b>Recensione </b><br />{review.text}
-                                            </div>
-                                            <div className="vote py-2">
-                                                <b>Voto </b><br />{review.vote}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </section> */}
                 <section>
                     <form className="card mx-auto bg-body-tertiary" onSubmit={handleReviewSubmit}>
                         <div className="card-top">
