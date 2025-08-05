@@ -3,9 +3,13 @@ import Homepage from "./pages/Homepage";
 import MoviesPage from "./pages/MoviesPage";
 import SingleMoviePage from "./pages/SingleMoviePage";
 import DefaulLayout from "./layouts/DefaultLayout";
-import NotFound from "./pages/NotFoundPage";
 import { MoviesProvider } from "./context/MoviesContext";
+import NotFound from "./pages/NotFoundPage";
 import StoryPage from "./pages/StoryPage";
+
+import AdminLayout from "./layouts/AdminLayout";
+import DashboardPage from "./pages/admin/DashboardPage";
+import CreateMoviePage from "./pages/admin/CreateMoviePage";
 
 function App() {
 
@@ -25,8 +29,13 @@ function App() {
               <Route path="/movies" element={<MoviesPage />} />
               <Route path="/movies/:id" element={<SingleMoviePage />} />
 
+              <Route path="/*" element={<NotFound />} />
             </Route>
-            <Route path="/*" element={<NotFound />} />
+
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<DashboardPage />} />
+              <Route path="/admin/movie/create" element={<CreateMoviePage />} />
+            </Route>
 
           </Routes>
 

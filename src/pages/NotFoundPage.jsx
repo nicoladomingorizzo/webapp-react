@@ -9,7 +9,7 @@ export default function NotFound() {
                 <p className="fs-3">Ci dispiace per l'invonveniente</p>
                 <p className="fs-3">Clicca qui</p>
                 <p className="fs-1">⬇</p>
-                <Link className="btn btn-dark fs-1" to={'/'}>Torna alla Home</Link>
+                <Link className="btn btn-dark fs-1 mb-5" to={'/'}>Torna alla Home</Link>
             </div>
         </div>
     )
