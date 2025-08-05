@@ -57,7 +57,7 @@ export default function Homepage() {
                             <p className="lead text-muted mb-4">
                                 Che la tua ricerca sia guidata dalla curiosità o dalla voglia di scoprire il tuo prossimo film preferito, noi siamo qui per accompagnarti.
                             </p>
-                            <Link to="/movies" className="btn btn-primary btn-lg me-2">Esplora i Film</Link>
+                            <Link to="/movies" className="btn btn-outline-primary btn-lg me-2">Esplora i Film</Link>
                         </div>
                     </div>
                 </div>
