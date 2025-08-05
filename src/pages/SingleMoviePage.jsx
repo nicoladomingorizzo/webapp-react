@@ -46,9 +46,6 @@ export default function SingleMoviePage() {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.error) {
-                    return;
-                };
                 setReviews(prev => [...prev, data]);
                 setName('');
                 setText('');
