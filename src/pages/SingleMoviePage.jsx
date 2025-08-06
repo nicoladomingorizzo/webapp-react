@@ -12,16 +12,19 @@ export default function SingleMoviePage() {
     const [reviews, setReviews] = useState([]);
     const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
     const navigate = useNavigate();
-    const { isLoading } = useLoaderContext;
+    const { isLoading, setIsLoading } = useLoaderContext();
 
     useEffect(() => {
-
+        setIsLoading(true)
         fetch(apiUrl)
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
                 setMovie(data)
                 setReviews(data.reviews)
+            })
+            .finally(() => {
+                setIsLoading(false)
             })
     }, [id]);
 

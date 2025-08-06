@@ -5,7 +5,7 @@ import { useLoaderContext } from "../context/LoaderContext";
 
 export default function MoviesPage() {
 
-    const { isLoading } = useLoaderContext;
+    const { isLoading } = useLoaderContext();
 
     return (
         <>
