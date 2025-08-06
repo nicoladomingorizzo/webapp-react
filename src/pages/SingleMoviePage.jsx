@@ -14,8 +14,6 @@ export default function SingleMoviePage() {
     const navigate = useNavigate();
     const { isLoading } = useLoaderContext;
 
-
-
     useEffect(() => {
 
         fetch(apiUrl)

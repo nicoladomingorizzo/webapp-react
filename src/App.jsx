@@ -9,10 +9,10 @@ import { MoviesProvider } from "./context/MoviesContext";
 import { LoaderProvider } from "./context/LoaderContext";
 
 import DefaulLayout from "./layouts/DefaultLayout";
-import AdminLayout from "./layouts/AdminLayout";
+// import AdminLayout from "./layouts/AdminLayout";
 
-import DashboardPage from "./pages/admin/DashboardPage";
-import CreateMoviePage from "./pages/admin/CreateMoviePage";
+// import DashboardPage from "./pages/admin/DashboardPage";
+// import CreateMoviePage from "./pages/admin/CreateMoviePage";
 
 function App() {
 
@@ -38,11 +38,11 @@ function App() {
 
                 <Route path="/*" element={<NotFound />} />
               </Route>
-
+              {/* 
               <Route element={<AdminLayout />}>
                 <Route path="/admin" element={<DashboardPage />} />
                 <Route path="/admin/movie/create" element={<CreateMoviePage />} />
-              </Route>
+              </Route> */}
 
             </Routes>
 
