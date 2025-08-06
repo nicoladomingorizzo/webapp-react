@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderContext } from "../context/LoaderContext";
 import FormReview from "../components/FormReview";
+import Loader from "../components/Loader";
 
 export default function SingleMoviePage() {
 
@@ -10,9 +12,12 @@ export default function SingleMoviePage() {
     const [reviews, setReviews] = useState([]);
     const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
     const navigate = useNavigate();
+    const { isLoading } = useLoaderContext;
+
 
 
     useEffect(() => {
+
         fetch(apiUrl)
             .then(res => res.json())
             .then(data => {
@@ -76,6 +81,11 @@ export default function SingleMoviePage() {
 
     return (
         <>
+
+            {isLoading && (
+                <Loader />
+            )};
+
             <main className="container my-5 mx-auto text-center">
                 <div className="d-flex justify-content-end me-5 mb-3">
                     <button className="btn btn-outline-dark text-right"

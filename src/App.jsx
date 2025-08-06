@@ -2,12 +2,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import MoviesPage from "./pages/MoviesPage";
 import SingleMoviePage from "./pages/SingleMoviePage";
-import DefaulLayout from "./layouts/DefaultLayout";
-import { MoviesProvider } from "./context/MoviesContext";
 import NotFound from "./pages/NotFoundPage";
 import StoryPage from "./pages/StoryPage";
 
+import { MoviesProvider } from "./context/MoviesContext";
+import { LoaderProvider } from "./context/LoaderContext";
+
+import DefaulLayout from "./layouts/DefaultLayout";
 import AdminLayout from "./layouts/AdminLayout";
+
 import DashboardPage from "./pages/admin/DashboardPage";
 import CreateMoviePage from "./pages/admin/CreateMoviePage";
 
@@ -16,32 +19,38 @@ function App() {
   return (
     <>
 
-      <MoviesProvider>
 
-        <BrowserRouter>
 
-          <Routes>
+      <LoaderProvider>
 
-            <Route element={<DefaulLayout />}>
+        <MoviesProvider>
 
-              <Route index element={<Homepage />} />
-              <Route path="/about" element={<StoryPage />} />
-              <Route path="/movies" element={<MoviesPage />} />
-              <Route path="/movies/:id" element={<SingleMoviePage />} />
+          <BrowserRouter>
 
-              <Route path="/*" element={<NotFound />} />
-            </Route>
+            <Routes>
 
-            <Route element={<AdminLayout />}>
-              <Route path="/admin" element={<DashboardPage />} />
-              <Route path="/admin/movie/create" element={<CreateMoviePage />} />
-            </Route>
+              <Route element={<DefaulLayout />}>
 
-          </Routes>
+                <Route index element={<Homepage />} />
+                <Route path="/about" element={<StoryPage />} />
+                <Route path="/movies" element={<MoviesPage />} />
+                <Route path="/movies/:id" element={<SingleMoviePage />} />
 
-        </BrowserRouter>
+                <Route path="/*" element={<NotFound />} />
+              </Route>
 
-      </MoviesProvider>
+              <Route element={<AdminLayout />}>
+                <Route path="/admin" element={<DashboardPage />} />
+                <Route path="/admin/movie/create" element={<CreateMoviePage />} />
+              </Route>
+
+            </Routes>
+
+          </BrowserRouter>
+
+        </MoviesProvider>
+
+      </LoaderProvider>
 
     </>
   )

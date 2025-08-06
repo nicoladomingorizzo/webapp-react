@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function FormReview() {
 
     const [name, setName] = useState('');
     const [text, setText] = useState('');
     const [vote, setVote] = useState('');
+    const [reviews, setReviews] = useState('')
+    const { id } = useParams()
 
     function handleReviewSubmit(e) {
         e.preventDefault();

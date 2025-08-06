@@ -11,6 +11,6 @@
 - [X] Configuriamo l’app di backend (repo webapp-express) a ricevere chiamate dalla nostra applicazione React, installando e impostando il middleware CORS
 - [X] Proviamo quindi ad effettuare una chiamata Ajax dalla home del progetto React, per ottenere la lista dei libri
 # MILESTONE 4
-In ultimo, effettuiamo una chiamata AJAX dalla pagina di dettaglio per ottenere il dettaglio di un singolo film, comprese le sue recensioni
+- [X] In ultimo, effettuiamo una chiamata AJAX dalla pagina di dettaglio per ottenere il dettaglio di un singolo film, comprese le sue recensioni
 # Bonus
-- Curare l’aspetto estetico della vostra applicazione
+- [X] Curare l’aspetto estetico della vostra applicazione
